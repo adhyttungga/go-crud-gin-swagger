@@ -21,7 +21,7 @@ go run .
 ### How to Test on Localhost or Development Server
 
 ```
-go test bitbucket.org/ms-chat-banking-main/test/
+go test github.com/adhyttungga/go-crud-gin-swagger/test/
 ```
 
 ### Environment Variables (Development)
