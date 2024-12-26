@@ -1,0 +1,100 @@
+basePath: /api
+definitions:
+  dto.ReqCreateTags:
+    properties:
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  dto.ResTags:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  dto.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+host: localhost:5000
+info:
+  contact: {}
+  description: A Tag service API in Go using Gin framework
+  title: Tag Service API
+  version: "1.0"
+paths:
+  /tags:
+    get:
+      description: Return list of tags.
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ResTags'
+                  type: array
+              type: object
+      summary: Get All tags.
+      tags:
+      - tags
+    post:
+      description: Save tags data in Database.
+      parameters:
+      - description: Create tags
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ReqCreateTags'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ResTags'
+              type: object
+      summary: Create tags
+      tags:
+      - tags
+  /tags/{tagId}:
+    get:
+      description: Returns tags whose tagId value matches id.
+      parameters:
+      - description: get tags by id
+        in: path
+        name: tagId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ResTags'
+              type: object
+      summary: Get Single tags by id.
+      tags:
+      - tags
+swagger: "2.0"
