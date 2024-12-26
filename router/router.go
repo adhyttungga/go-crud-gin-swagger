@@ -42,7 +42,9 @@ func NewRouter(DB *gorm.DB) *gin.Engine {
 	tagsDelivery := tags_delivery.NewTagsDeliveryImpl(tagsUsecase)
 
 	// Add Swagger Router
-	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1)))
+	if config.Config.GinMode == "debug" {
+		router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.DefaultModelsExpandDepth(-1)))
+	}
 
 	baseRouter := router.Group("/api")
 	tagsRouter := baseRouter.Group("/tags")

@@ -19,6 +19,7 @@ type Origin struct {
 }
 
 type ServerConfig struct {
+	GinMode    string `env:"GIN_MODE" default:"debug"`
 	ServerHost string `env:"SERVER_HOST" default:"localhost"`
 	ServerPort string `env:"SERVER_PORT" default:"5000"`
 	DB         Database
